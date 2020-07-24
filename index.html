@@ -20,13 +20,17 @@
   <script id="template" type="text/x-handlebars-template">
     <li data-datacomplete= {{dateComplete}} class="{{day}}" >{{value}}</li>
   </script>
+  <script id="month_template" type="text/x-handlebars-template">
+    <h2 id="selected_month">{{month}}</h2>
+  </script>
 
   <title>Calendar</title>
 </head>
 
 <body>
   <header>
-    <h1>Calendar</h1>
+    <h1>Calendar 2018</h1>
+    <h2 id="selected_month"></h2>
   </header>
 
   <main>
@@ -34,7 +38,7 @@
       <div class="button">
         <i id="prev" class="fa fa-chevron-left" aria-hidden="true"></i>
       </div>
-      <div class="calendar">
+      <div id="calendar" class="calendar">
         <ul id = "month">
 
         </ul>

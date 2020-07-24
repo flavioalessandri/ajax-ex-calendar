@@ -17,55 +17,45 @@ function switchMonths(){
   var month=1;
   var currentMonth = moment("2018-"+month+"-01");
   findDaysInMonth(currentMonth);
+  var next = $('#next');
+  var prev = $('#prev');
 
   $(document).on("click" , '#next', function(){
     console.log("next");
+    month= month+1;
+    console.log(month);
+    currentMonth = moment("2018-"+month+"-01");
+    findDaysInMonth(currentMonth);
 
-    if (month<12 ){
-      month= month+1;
-      console.log(month);
-      currentMonth = moment("2018-"+month+"-01");
-      findDaysInMonth(currentMonth);
-    }
-    else {
-      month=1;
-      currentMonth = moment("2018-"+month+"-01");
-      findDaysInMonth(currentMonth);
-    }
   })
 
   $(document).on("click" , '#prev', function(){
     console.log("prev");
+    month= month-1;
+    console.log(month);
+    currentMonth = moment("2018-"+month+"-01");
+    findDaysInMonth(currentMonth);
 
-    if (month>1 ){
-      month= month-1;
-      console.log(month);
-      currentMonth = moment("2018-"+month+"-01");
-      findDaysInMonth(currentMonth);
-    }
-    else {
-      month=12;
-      currentMonth = moment("2018-"+month+"-01");
-      findDaysInMonth(currentMonth);
-    }
   })
 }
 
 
 
 function findDaysInMonth(currentMonth){
-    printMonth(currentMonth);
-    getDateFromApi(currentMonth);
-    addMonthToTitle(currentMonth);
-}
 
+  var year = currentMonth.year();
+  console.log("YEAR" , year);
+  console.log(currentMonth);
+  printMonth(currentMonth);
+  getDateFromApi(currentMonth);
+}
 
 function printMonth(currentMonth){
   var daysMonth = currentMonth.daysInMonth();
   console.log(daysMonth,"daysInMonth");
 
   var template = $('#template').html();
-  var compiled = Handlebars.compile(template);
+  var compiled = Handlebars.compile(template)
   var target = $('#month');
   target.html('');
 
@@ -99,20 +89,15 @@ function getDateFromApi(currentMonth){
         var holidays = data['response'];
         var success = data['success'];
 
-        if(success && holidays.length>0 ){
+        if(success){
 
           for (var i = 0; i < holidays.length; i++) {
-            console.log("Holidays data response" , holidays,"Holidays[i]", holidays[i]);
-
-              var element = $("#month li[data-datacomplete='"+ holidays[i]['date'] + "']");
-              console.log("element", element);
-              console.log("holidaysLENGTH", holidays.length);
-              element.addClass("holidays");
-              element.append("<br>" + holidays[i]['name']);
-
+            console.log(holidays[i]);
+            var element = $("#month li[data-datacomplete='"+ holidays[i]['date'] + "']");
+            console.log("element", element);
+            element.addClass("holidays");
+            element.append("" + holidays[i]['name']);
           }
-        } else{
-          alert("SORRY! NO HOLIDAYS IN " + currentMonth.format('MMMM').toUpperCase() + " !");
         }
 
       },
@@ -123,24 +108,7 @@ function getDateFromApi(currentMonth){
 }
 
 
-function addMonthToTitle(currentMonth){
-  var template = $('#month_template').html();
-  var compiled = Handlebars.compile(template);
-  var target = $('#selected_month');
-  target.html('');
-  console.log("addMonth", currentMonth.format('MMMM'));
-
-  var monthHTML = compiled({
-    month: currentMonth.format('MMMM')
-  });
-  target.append(monthHTML);
-
-}
-
-
 function init(){
-
-
   switchMonths();
 
   // findDaysInMonth();
