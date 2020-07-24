@@ -8,7 +8,7 @@ body{
   font-family: 'Mulish', sans-serif;
   font-weight: normal;
   font-size: 16px;
-  color:black;
+  color:#370617;
 }
 
 h1{
@@ -16,7 +16,7 @@ h1{
   color: white;
   text-align: center;
   padding: 30px  0;
-  background-color: coral;
+  background-color: #9D0208;
 }
 
 h2{
@@ -58,7 +58,7 @@ li{
   width: 90px;
   height:90px;
   list-style: none;
-  border:1px solid black;
+  border:1px  solid #4F030A;
   padding-top:5px;
 }
 
@@ -67,7 +67,11 @@ li{
   color:white;
   font-size: 16px;
 
-  background-color: coral;
+  background-color: #9D0208;
+}
+
+#next , #prev{
+  font-size: 28px;
 }
 
 
